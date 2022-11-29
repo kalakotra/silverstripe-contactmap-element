@@ -1,5 +1,5 @@
 {
-  "name": "biffbangpow/silverstripe-contactmap-elemwent",
+  "name": "biffbangpow/silverstripe-contactmap-element",
   "description": "A contact info / map element for Silverstripe",
   "type": "silverstripe-vendormodule",
   "minimum-stability": "dev",
