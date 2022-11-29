@@ -1,6 +1,6 @@
 {
-  "name": "biffbangpow/silverstripe-elementmodule-template",
-  "description": "A basic skeleton for a Silverstripe 4 elemental module",
+  "name": "biffbangpow/silverstripe-contactmap-elemwent",
+  "description": "A contact info / map element for Silverstripe",
   "type": "silverstripe-vendormodule",
   "minimum-stability": "dev",
   "license": "proprietary",
