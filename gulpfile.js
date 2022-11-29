@@ -28,11 +28,7 @@ function transpileJS() {
     return src('client/src/javascript/**/*.js')
         .pipe(mode.development(sourcemaps.init()))
         .pipe(named())
-        .pipe(
-            webpack({
-
-            })
-        )
+        .pipe(webpack({}))
         .pipe(mode.production(uglify()))
         .pipe(mode.development(sourcemaps.write('../../dist/javascript/maps')))
         .pipe(dest('client/dist/javascript'))
