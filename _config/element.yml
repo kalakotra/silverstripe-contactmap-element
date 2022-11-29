@@ -1,0 +1,8 @@
+---
+Name: locationelement-config
+---
+
+SilverStripe\SiteConfig\SiteConfig:
+  extensions:
+    - BiffBangPow\Element\Extension\ContactMapElementConfigExtension
+
