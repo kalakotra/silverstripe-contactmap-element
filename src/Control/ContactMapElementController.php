@@ -16,7 +16,11 @@ class ContactMapElementController extends ElementController
             Requirements::javascript('biffbangpow/silverstripe-contactmap-element:client/dist/javascript/osm.js', ['type' => false]);
             Requirements::css('biffbangpow/silverstripe-contactmap-element:client/dist/css/osm.css');
         } else if ($provider === 'google') {
-            //Add Google scripts
+            $mapsKey = SiteConfig::current_site_config()->GoogleKey;
+            if ($mapsKey != "") {                
+                Requirements::javascriptTemplate('biffbangpow/silverstripe-contactmap-element:client/dist/javascript/gmaps.js', ['KEY' => $mapsKey]);
+                Requirements::css('biffbangpow/silverstripe-contactmap-element:client/dist/css/gmap.css');
+            }
         }
     }
 }

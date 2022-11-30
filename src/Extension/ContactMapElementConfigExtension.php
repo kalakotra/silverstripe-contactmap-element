@@ -40,9 +40,8 @@ class ContactMapElementConfigExtension extends DataExtension
             DropdownField::create('MapsProvider', 'Maps Provider', $this->maps_providers)
                 ->setEmptyString('Please select one:'),
             TextField::create('GoogleKey', 'Google Maps API key')
+                ->setDescription('Your key needs to have the static maps API enabled.  It is important that you restrict your API key to the required domains / functions!')
                 ->displayIf('MapsProvider')->isEqualTo('google')->end(),
-            TextField::create('GoogleSecret', 'Google Maps Secret')
-                ->displayIf('MapsProvider')->isEqualTo('google')->end()
         ]);
     }
 }
