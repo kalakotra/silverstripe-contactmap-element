@@ -18,7 +18,7 @@
     <div class="row $EvenOdd mt-4">
         <div class="col-12 col-lg-6">
             <div id="map-$ID" class="contactelement-map" data-lat="$Lat" data-lng="$Lng"
-                 data-mapzoom="14" data-pinurl="$resourceURL('biffbangpow/silverstripe-contactmap-element:client/dist/img/location-pin.png')"></div>
+                 data-mapzoom="$MapZoom" data-pinurl="$resourceURL('biffbangpow/silverstripe-contactmap-element:client/dist/img/location-pin.png')"></div>
         </div>
         <div class="col-12 col-lg-6">
             <h3>$Title</h3>
