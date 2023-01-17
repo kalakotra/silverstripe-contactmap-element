@@ -9,6 +9,7 @@ import Style from 'ol/style/Style.js';
 import Icon from 'ol/style/Icon.js';
 import Feature from 'ol/Feature.js';
 import Point from 'ol/geom/Point.js';
+import {defaults as defaultInterations} from 'ol/interaction';
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -28,6 +29,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 center: mercatorPos,
                 zoom: mapHolder.dataset.mapzoom,
             }),
+            interactions: defaultInterations({
+                mouseWheelZoom: false
+            })
         });
 
         let markers = new Vector({
@@ -43,7 +47,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         let marker = new Feature(new Point(mercatorPos));
         markers.getSource().addFeature(marker);
-
 
 
     });
