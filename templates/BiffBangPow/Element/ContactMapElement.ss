@@ -29,6 +29,13 @@
             <% if $Email %>
                 <p class="mt-3"><a href="mailto:$Email">$Email</a></p>
             <% end_if %>
+            <% if $ShowDirections %>
+            <p>
+                <a href="$DirectionsLink" target="_blank" rel="nofollow">
+                    <%t BiffBangPow\Element\Model\ContactLocation.showdirections 'Show Directions' %>
+                </a>
+            </p>
+            <% end_if %>
         </div>
     </div>
     <% end_loop %>
