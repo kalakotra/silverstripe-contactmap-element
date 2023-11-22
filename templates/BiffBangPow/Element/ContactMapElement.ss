@@ -2,12 +2,12 @@
     <% if $Title && $ShowTitle %>
         <div class="row">
             <div class="col-12">
-                <h2 class="mb-5">$Title</h2>
+                <h2 class="mb-4 element-title">$Title</h2>
             </div>
         </div>
     <% end_if %>
     <% if $Content %>
-        <div class="row">
+        <div class="row mb-4">
             <div class="col-12">
                 $Content
             </div>

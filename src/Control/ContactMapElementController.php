@@ -5,6 +5,7 @@ namespace BiffBangPow\Element\Control;
 use DNADesign\Elemental\Controllers\ElementController;
 use SilverStripe\SiteConfig\SiteConfig;
 use SilverStripe\View\Requirements;
+use SilverStripe\View\ThemeResourceLoader;
 
 class ContactMapElementController extends ElementController
 {
@@ -16,11 +17,16 @@ class ContactMapElementController extends ElementController
             $mapsKey = SiteConfig::current_site_config()->GoogleKey;
             if ($mapsKey != "") {
                 Requirements::javascriptTemplate('biffbangpow/silverstripe-contactmap-element:client/dist/javascript/gmaps.js', ['KEY' => $mapsKey]);
-                Requirements::css('biffbangpow/silverstripe-contactmap-element:client/dist/css/gmap.css');
+                Requirements::css('biffbangpow/silverstripe-contactmap-element:client/dist/css/gmap.css', '', ['defer' => true]);
             }
         } else {
             Requirements::javascript('biffbangpow/silverstripe-contactmap-element:client/dist/javascript/osm.js', ['type' => false]);
-            Requirements::css('biffbangpow/silverstripe-contactmap-element:client/dist/css/osm.css');
+            Requirements::css('biffbangpow/silverstripe-contactmap-element:client/dist/css/osm.css', '', ['defer' => true]);
+        }
+
+        $themeCSS = ThemeResourceLoader::inst()->findThemedCSS('client/dist/css/elements/textandvideo');
+        if ($themeCSS) {
+            Requirements::css($themeCSS, '', ['defer' => true]);
         }
     }
 }
