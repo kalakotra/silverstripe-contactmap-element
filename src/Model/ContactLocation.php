@@ -19,12 +19,9 @@ class ContactLocation extends DataObject
     private static $db = [
         'Title' => 'Varchar',
         'Address' => 'Text',
-        'Telephone' => 'Varchar',
-        'Email' => 'Varchar',
         'Lat' => 'Varchar',
         'Lng' => 'Varchar',
         'MapZoom' => 'Int',
-        'ShowDirections' => 'Boolean',
         'Sort' => 'Int'
     ];
     private static $belongs_many_many = [
@@ -41,37 +38,45 @@ class ContactLocation extends DataObject
     {
         $fields = parent::getCMSFields();
         $fields->removeByName('Sort');
+        $fields->removeByName('Element');
         $fields->addFieldsToTab('Root.Main', [
             DropdownField::create('MapZoom',
                 _t(__CLASS__ . '.mapzoom', 'Map Zoom Level'),
                 $this->getMapZooms())
                 ->setDescription(
                     _t(__CLASS__ . '.mapzoomdescription', 'The higher the number, the more zoomed-in the map is shown')
-                ),
-            CheckboxField::create(
-                'ShowDirections',
-                _t(__CLASS__ . '.showdirections', 'Show a link to get directions on Google maps')
-            )
+                )
         ]);
         return $fields;
+    }
+
+    public function onBeforeWrite() {
+        parent::onBeforeWrite();
+        if ($this->Address && !$this->Lat && !$this->Lng) {
+            $search_url = "https://nominatim.openstreetmap.org/search?format=json&q=" . urlencode($this->getAddressString());
+
+            $httpOptions = [
+                "http" => [
+                    "method" => "GET",
+                    "header" => "User-Agent: Nominatim-Test"
+                ]
+            ];
+
+            $context = stream_context_create($httpOptions);
+            $response = file_get_contents($search_url, false, $context);
+
+            $data = json_decode($response, true);
+            if (isset($data[0])) {
+                $this->Lat = $data[0]['lat'];
+                $this->Lng = $data[0]['lon'];
+            }
+        }
     }
 
     private function getMapZooms()
     {
         $zooms = range(0, 20);
         return array_slice($zooms, 8, 30, true);
-    }
-
-    public function getDirectionsLink()
-    {
-        $base = 'https://www.google.com/maps/dir/';
-
-        $params = [
-            'api' => 1,
-            'destination' => $this->getAddressString()
-        ];
-
-        return $base . '?' . http_build_query($params);
     }
 
     public function getAddressString()
