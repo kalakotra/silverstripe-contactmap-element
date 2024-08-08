@@ -15,8 +15,6 @@
         }
     ],
     "require": {
-        "biffbangpow/silverstripe-element-spacing": "^1",
-        "biffbangpow/silverstripe-sortable-extension": "^2"
     },
     "autoload": {
         "psr-4": {
