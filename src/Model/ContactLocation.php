@@ -3,7 +3,7 @@
 namespace BiffBangPow\Element\Model;
 
 use BiffBangPow\Element\ContactMapElement;
-use BiffBangPow\Extension\SortableExtension;
+//use BiffBangPow\Extension\SortableExtension;
 use SilverStripe\Forms\CheckboxField;
 use SilverStripe\Forms\DropdownField;
 use SilverStripe\ORM\DataObject;
@@ -14,6 +14,8 @@ use SilverStripe\ORM\DataObject;
 class ContactLocation extends DataObject
 {
     private static $table_name = 'BBP_ContactLocation';
+
+    private static $default_sort = 'Sort';
     private static $db = [
         'Title' => 'Varchar',
         'Address' => 'Text',
@@ -22,13 +24,14 @@ class ContactLocation extends DataObject
         'Lat' => 'Varchar',
         'Lng' => 'Varchar',
         'MapZoom' => 'Int',
-        'ShowDirections' => 'Boolean'
+        'ShowDirections' => 'Boolean',
+        'Sort' => 'Int'
     ];
     private static $belongs_many_many = [
         'Element' => ContactMapElement::class
     ];
     private static $extensions = [
-        SortableExtension::class
+        //SortableExtension::class
     ];
     private static $defaults = [
         'MapZoom' => 14
@@ -37,6 +40,7 @@ class ContactLocation extends DataObject
     public function getCMSFields()
     {
         $fields = parent::getCMSFields();
+        $fields->removeByName('Sort');
         $fields->addFieldsToTab('Root.Main', [
             DropdownField::create('MapZoom',
                 _t(__CLASS__ . '.mapzoom', 'Map Zoom Level'),
