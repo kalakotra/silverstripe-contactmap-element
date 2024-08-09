@@ -23,7 +23,7 @@ class ContactMapElement extends BaseElement
     private static $inline_editable = false;
     private static $controller_class = ContactMapElementController::class;
     private static $db = [
-        'Content' => 'HTMLText',
+        'FullWidth' => 'Boolean',
         'ShowAllLocations' => 'Boolean'
     ];
     private static $many_many = [
@@ -33,35 +33,28 @@ class ContactMapElement extends BaseElement
         'ShowAllLocations' => true
     ];
 
+    private static $field_labels = [
+        'FullWidth' => 'Volle Breite',
+        'ShowAllLocations' => 'Alle Standorte anzeigen',
+        'Locations' => 'Standorte'
+    ];
+
     public function getCMSFields()
     {
         $fields = parent::getCMSFields();
         $fields->removeByName(['Locations']);
         $fields->addFieldsToTab('Root.Main', [
+            CheckboxField::create('FullWidth', self::$field_labels['FullWidth']),
+            CheckboxField::create('ShowAllLocations', self::$field_labels['ShowAllLocations']),
             Wrapper::create(
-                CheckboxSetField::create('Locations', 'Select Locations', ContactLocation::get()->map())
+                CheckboxSetField::create('Locations', self::$field_labels['Locations'], ContactLocation::get()->map())
             )->displayIf('ShowAllLocations')->isNotChecked()->end()
         ]);
         return $fields;
     }
 
 
-    /**
-     * @return string
-     */
-    public function getType()
-    {
-        return 'Locations / Map';
-    }
-
-    /**
-     * @return string
-     */
-    public function getSimpleClassName()
-    {
-        return 'bbp-contactmap-element';
-    }
-
+    
     public function getDisplayLocations()
     {
         if ($this->ShowAllLocations) {

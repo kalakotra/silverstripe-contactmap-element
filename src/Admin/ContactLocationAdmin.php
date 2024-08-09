@@ -7,7 +7,7 @@ use BiffBangPow\Element\Model\ContactLocation;
 
 class ContactLocationAdmin extends ModelAdmin {
 
-    private static $menu_icon_class = 'font-icon-address-card';
+    private static $menu_icon_class = 'font-icon-globe';
     
     private static $managed_models = [
         ContactLocation::class
