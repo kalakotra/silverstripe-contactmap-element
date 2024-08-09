@@ -13,7 +13,7 @@
                             <div id="map-$ID" class="contactelement-map">
                                 <% loop $DisplayLocations %>
                                     <% if $Lat!="" && $Lng!="" %>
-                                        <marker data-lat="$Lat" data-lng="$Lng" data-popup='<p><b>$Title</b><br/>$Address</p>'></marker>
+                                        <marker data-lat="$Lat" data-lng="$Lng" <% if ShowPopup && PopupContent %>data-popup='$PopupContent'<% end_if %>></marker>
                                     <% end_if %>
                                 <% end_loop %>
                             </div>
